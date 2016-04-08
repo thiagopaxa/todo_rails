@@ -3,8 +3,15 @@
 
   <div class="form-inputs">
     <%= f.input :title %>
+
+    <%= f.simple_fields_for(:tasks) do |ff| %>
+      <%= ff.input :body, label: 'Task' %>
+    <% end %>
+
     <%= f.input :private %>
     <%= f.input :completed %>
+
+
   </div>
 
   <div class="form-actions">

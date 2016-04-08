@@ -15,6 +15,7 @@ class TodosController < ApplicationController
   # GET /todos/new
   def new
     @todo = Todo.new
+    @todo.tasks.build
   end
 
   # GET /todos/1/edit
@@ -26,6 +27,7 @@ class TodosController < ApplicationController
   def create
     @todo = Todo.new(todo_params)
 
+    binding.pry
     respond_to do |format|
       if @todo.save
         format.html { redirect_to @todo, notice: 'Todo was successfully created.' }
@@ -69,6 +71,8 @@ class TodosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def todo_params
-      params.require(:todo).permit(:title, :private, :completed)
+      params
+        .require(:todo)
+        .permit(:title, :private, :completed, tasks_attributes: [:body])
     end
 end
