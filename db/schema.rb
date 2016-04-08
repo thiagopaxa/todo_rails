@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160408052550) do
+ActiveRecord::Schema.define(version: 20160408060844) do
+
+  create_table "todos", force: :cascade do |t|
+    t.string   "title",      limit: 255
+    t.boolean  "private"
+    t.boolean  "completed"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
