@@ -1,5 +1,6 @@
 class TodosController < ApplicationController
   before_action :set_todo, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /todos
   # GET /todos.json
@@ -27,7 +28,6 @@ class TodosController < ApplicationController
   def create
     @todo = Todo.new(todo_params)
 
-    binding.pry
     respond_to do |format|
       if @todo.save
         format.html { redirect_to @todo, notice: 'Todo was successfully created.' }
@@ -56,7 +56,9 @@ class TodosController < ApplicationController
   # DELETE /todos/1
   # DELETE /todos/1.json
   def destroy
+    @todo.tasks.each(&:destroy)
     @todo.destroy
+
     respond_to do |format|
       format.html { redirect_to todos_url, notice: 'Todo was successfully destroyed.' }
       format.json { head :no_content }
