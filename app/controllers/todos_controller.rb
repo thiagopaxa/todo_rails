@@ -27,6 +27,7 @@ class TodosController < ApplicationController
   # POST /todos.json
   def create
     @todo = Todo.new(todo_params)
+    @todo.user = current_user
 
     respond_to do |format|
       if @todo.save
@@ -42,6 +43,8 @@ class TodosController < ApplicationController
   # PATCH/PUT /todos/1
   # PATCH/PUT /todos/1.json
   def update
+    @todo.user = current_user
+
     respond_to do |format|
       if @todo.update(todo_params)
         format.html { redirect_to @todo, notice: 'Todo was successfully updated.' }
