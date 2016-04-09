@@ -1,13 +1,23 @@
-<p id="notice"><%= notice %></p>
+<p class="bg-info" id="notice"><%= notice %></p>
 
-<h1>Listing Todos</h1>
+<header class="header-todo-list clearfix">
+  <h1>
+    Listing Todos
 
-<table>
+    <button type="button" class="btn btn-primary pull-right sign-out">
+      <i class="glyphicon glyphicon-eject" title="Sign Out"></i> <span class="hidden-xs">Sign Out</span>
+    </button>
+
+    <%= link_to new_todo_path, class: "btn btn-primary pull-right add-todo-btn" do %>
+      <i class="glyphicon glyphicon-plus" title="Add Todo"></i> <span class="hidden-xs">Add Todo</span>
+    <% end %>
+  </h1>
+</header>
+
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Title</th>
-      <th>Private</th>
-      <th>Completed</th>
       <th>User</th>
       <th colspan="3"></th>
     </tr>
@@ -17,12 +27,21 @@
     <% @todos.each do |todo| %>
       <tr>
         <td><%= todo.title %></td>
-        <td><%= todo.private %></td>
-        <td><%= todo.completed %></td>
         <td><%= todo.user.email %></td>
-        <td><%= link_to 'Show', todo %></td>
-        <td><%= link_to 'Edit', edit_todo_path(todo) %></td>
-        <td><%= link_to 'Destroy', todo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to todo do %>
+            <i class="glyphicon glyphicon-eye-open"></i>
+          <% end %>
+        </td>
+        <td><%= link_to edit_todo_path(todo) do %>
+            <i class="glyphicon glyphicon-edit"></i>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to todo, method: :delete, data: { confirm: 'Are you sure?' } do %>
+            <i class="glyphicon glyphicon-remove"></i>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +49,3 @@
 
 <br>
 
-<%= link_to 'New Todo', new_todo_path %>
