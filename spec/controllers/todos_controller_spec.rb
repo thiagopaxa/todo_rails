@@ -19,6 +19,26 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe TodosController, type: :controller do
+  include Devise::TestHelpers
+
+  context 'Authenticate User' do
+    it "blocks unauthenticated access when user equals nil" do
+      sign_in nil
+
+      get :index
+
+      expect(response).to redirect_to(new_user_session_path)
+    end
+
+    it "allows authenticated access when user sign in" do
+      allow(user = double('user')).to receive(:id).and_return(1)
+      sign_in user
+
+      get :index
+
+      expect(response).to be_success
+    end
+  end
 
   # This should return the minimal set of attributes required to create a valid
   # Todo. As you add validations to Todo, be sure to
@@ -53,8 +73,13 @@ RSpec.describe TodosController, type: :controller do
   end
 
   describe "GET #new" do
+    before :each do
+      sign_in
+    end
+
     it "assigns a new todo as @todo" do
       get :new, {}, valid_session
+
       expect(assigns(:todo)).to be_a_new(Todo)
     end
   end

@@ -5,7 +5,7 @@ class TodosController < ApplicationController
   # GET /todos
   # GET /todos.json
   def index
-    @todos = Todo.public_to(current_user)
+    @todos = Todo.public_to current_user
   end
 
   # GET /todos/1
@@ -16,7 +16,7 @@ class TodosController < ApplicationController
   # GET /todos/new
   def new
     @todo = Todo.new
-    @todo.tasks.build
+    @todo.tasks.new
   end
 
   # GET /todos/1/edit
