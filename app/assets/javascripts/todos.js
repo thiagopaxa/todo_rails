@@ -2,9 +2,20 @@
   'use strict';
   root.Todo = window.Todo || {};
 
+  // Default configs
+  // This will be overwrited in init if arguments are passed
+  Todo.configs = {
+    signOutPath: '/users/sign_out'
+  };
+
+  Todo.init = function(opts) {
+    $.extend(true, Todo.configs, opts);
+    Todo.bindings();
+  };
+
   Todo.signUserOut = function() {
     $.ajax({
-      url: '/users/sign_out',
+      url: Todo.configs.signOutPath,
       type: 'DELETE',
 
       success: function(){
@@ -18,13 +29,7 @@
   };
 
   Todo.bindings = function(){
-
     $('.sign-out-btn').on('click', Todo.signUserOut);
   };
 
 })(window);
-
-
-$(function(){
-  Todo.bindings();
-});
