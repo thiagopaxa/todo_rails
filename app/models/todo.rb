@@ -6,4 +6,7 @@ class Todo < ActiveRecord::Base
 
   validates_presence_of :title
 
+  scope :public_to, lambda { |user|
+    where("private = ? or user_id = ?", false, user.id)
+  }
 end
