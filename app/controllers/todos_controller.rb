@@ -78,11 +78,13 @@ class TodosController < ApplicationController
   end
 
   def add_favorite
-    Todo.find(params[:id])
+    @todo.favorites.create(following_user: current_user)
+    render json: @todo, status: 200
   end
 
   def remove_favorite
-
+    @todo.following_users.delete(current_user)
+    render json: @todo, status: 200
   end
 
 
