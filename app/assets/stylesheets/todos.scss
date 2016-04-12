@@ -2,6 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+ul, li {
+  list-style-type: none;
+}
+
 .header-todo-list {
   .btn-primary{
     margin: 5px;

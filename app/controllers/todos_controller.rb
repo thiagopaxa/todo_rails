@@ -26,7 +26,6 @@ class TodosController < ApplicationController
   # POST /todos
   # POST /todos.json
   def create
-    binding.pry
     @todo = Todo.new(todo_params)
     @todo.user = current_user
 
@@ -44,7 +43,6 @@ class TodosController < ApplicationController
   # PATCH/PUT /todos/1
   # PATCH/PUT /todos/1.json
   def update
-    binding.pry
     @todo.user = current_user
 
     respond_to do |format|

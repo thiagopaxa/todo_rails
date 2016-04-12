@@ -4,19 +4,16 @@
   <div class="form-inputs">
     <%= f.input :title %>
 
-    <div class="form-group">
-      <%= f.simple_fields_for(:tasks) do |task| %>
-        <div class="form-inline form-group task-field">
-          <%= task.input :body, label: 'Task' %>
-          <%= task.input :id, as: :hidden %>
-          <span>Delete: </span>
-          <%= task.check_box :_destroy, as: :boolean %>
-        </div>
-      <% end %>
-      <button type="button" class="btn btn-primary add-task-btn">
-        <i class="glyphicon glyphicon-plus" title="Add Task">
-        </i> <span class="hidden-xs">Add Task</span>
-      </button>
+    <div class="form-group" id="task-fields-wrapper">
+      <ul>
+        <%= f.simple_fields_for(:tasks) do |task| %>
+          <%= render "task_fields", f: task %>
+        <% end %>
+      </ul>
+
+      <%= link_to_add_association 'add task', f, :tasks,
+            'data-association-insertion-node' => "#task-fields-wrapper ul",
+            'data-association-insertion-method' => "append" %>
     </div>
 
     <%= f.input :private %>
@@ -27,17 +24,4 @@
   <div class="form-actions">
     <%= f.button :submit %>
   </div>
-  <script type="template" id="task-field-template">
-    <div class="form-inline form-group task-field">
-      <div class="form-group string required todo_tasks_body">
-        <label class="string required control-label" for="todo_tasks_attributes_{{ index }}_body">
-          <abbr title="required">*</abbr> Task
-        </label>
-        <input class="string required form-control" type="text" name="todo[tasks_attributes][{{ index }}][body]" id="todo_tasks_attributes_{{ index }}_body">
-      </div>
-
-      <span>Delete: </span>
-      <input type="checkbox" name="todo[tasks_attributes][{{ index }}][_destroy]" id="todo_tasks_attributes_{{ index }}__destroy">
-    </div>
-  </script>
 <% end %>
