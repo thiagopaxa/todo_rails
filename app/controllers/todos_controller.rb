@@ -1,5 +1,9 @@
 class TodosController < ApplicationController
-  before_action :set_todo, only: [:show, :edit, :update, :destroy]
+  before_action :set_todo, only: [:show, :edit, :update, :destroy,
+                                  :add_favorite, :remove_favorite]
+
+  before_action :set_user, only: [:add_favorite, :remove_favorite]
+
   before_action :authenticate_user!
 
   # GET /todos
@@ -68,9 +72,27 @@ class TodosController < ApplicationController
     end
   end
 
+  def favorites
+    @todos = current_user.favorite_todos
+    render :index
+  end
+
+  def add_favorite
+    Todo.find(params[:id])
+  end
+
+  def remove_favorite
+
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_todo
+      @todo = Todo.find(params[:id])
+    end
+
+    def set_user
       @todo = Todo.find(params[:id])
     end
 
