@@ -2,14 +2,13 @@ class TodosController < ApplicationController
   before_action :set_todo, only: [:show, :edit, :update, :destroy,
                                   :add_favorite, :remove_favorite]
 
-  before_action :set_user, only: [:add_favorite, :remove_favorite]
-
+  before_action :favorite_todos_list, only: [:index, :favorites]
   before_action :authenticate_user!
 
   # GET /todos
   # GET /todos.json
   def index
-    @todos = Todo.public_to current_user
+    @todos = TodoPresenter.wrap(Todo.public_to current_user)
   end
 
   # GET /todos/1
@@ -73,7 +72,7 @@ class TodosController < ApplicationController
   end
 
   def favorites
-    @todos = current_user.favorite_todos
+    @todos = TodoPresenter.wrap(current_user.favorite_todos)
     render :index
   end
 
@@ -94,8 +93,8 @@ class TodosController < ApplicationController
       @todo = Todo.find(params[:id])
     end
 
-    def set_user
-      @todo = Todo.find(params[:id])
+    def favorite_todos_list
+      @favorite_todo_ids = current_user.favorite_todos.all.map(&:id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

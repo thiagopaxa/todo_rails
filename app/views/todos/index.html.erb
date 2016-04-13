@@ -31,11 +31,7 @@
         <td><%= todo.title %></td>
         <td><%= todo.user.email %></td>
         <td class="text-center">
-          <%= link_to 'javascript:void(0);',
-              data: {id: todo.id},
-              class: "remove-favorite" do %>
-            <i class="glyphicon glyphicon-star"></i>
-          <% end %>
+          <%= todo.favorite_star(@favorite_todo_ids) %>
         </td>
         <td>
           <%= link_to edit_todo_path(todo) do %>
