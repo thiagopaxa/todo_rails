@@ -1,6 +1,7 @@
 class TodoPresenter < Burgundy::Item
   def favorite_star(favorite_todo_ids)
     @favorite_todo_ids = favorite_todo_ids
+    # prints out a link with an icon inside
     h.link_to 'javascript:void(0);', data: {id: item.id}, class: favorite_class do
       h.content_tag(:i, '', class: "glyphicon #{star_class}")
     end

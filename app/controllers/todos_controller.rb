@@ -1,9 +1,10 @@
 class TodosController < ApplicationController
+  before_action :authenticate_user!
+
   before_action :set_todo, only: [:show, :edit, :update, :destroy,
                                   :add_favorite, :remove_favorite]
 
   before_action :favorite_todos_list, only: [:index, :favorites]
-  before_action :authenticate_user!
 
   # GET /todos
   # GET /todos.json
