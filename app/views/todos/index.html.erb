@@ -1,52 +1,6 @@
+<%= render 'nav_header' %>
+
 <p class="bg-info" id="notice"><%= notice %></p>
 
-<header class="header-todo-list clearfix">
-  <h1>
-    Listing Todos
-
-    <button type="button" class="btn btn-primary pull-right sign-out-btn">
-      <!-- apparently glyphicon has an exit icon, but not in bootstrap, so remains temporarily the eject =/ -->
-      <i class="glyphicon glyphicon-eject" title="Sign Out"></i> <span class="hidden-xs">Sign Out</span>
-    </button>
-
-    <%= link_to new_todo_path, class: "btn btn-primary pull-right add-todo-btn" do %>
-      <i class="glyphicon glyphicon-plus" title="Add Todo"></i> <span class="hidden-xs">Add Todo</span>
-    <% end %>
-  </h1>
-</header>
-
-<table class="table table-hover todos-table">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>User</th>
-      <th class="text-center">Favorite</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @todos.each do |todo| %>
-      <tr>
-        <td><%= todo.title %></td>
-        <td><%= todo.user.email %></td>
-        <td class="text-center">
-          <%= todo.favorite_star(@favorite_todo_ids) %>
-        </td>
-        <td>
-          <%= link_to edit_todo_path(todo) do %>
-            <i class="glyphicon glyphicon-edit"></i>
-          <% end %>
-        </td>
-        <td>
-          <%= link_to todo, method: :delete, data: { confirm: 'Are you sure?' } do %>
-            <i class="glyphicon glyphicon-remove text-danger"></i>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
+<%= render 'header_list_todos', header_title: 'Todos' %>
+<%= render 'list_todos' %>

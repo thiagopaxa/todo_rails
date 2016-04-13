@@ -74,7 +74,6 @@ class TodosController < ApplicationController
 
   def favorites
     @todos = TodoPresenter.wrap(current_user.favorite_todos)
-    render :index
   end
 
   def add_favorite
